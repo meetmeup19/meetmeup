@@ -25,20 +25,51 @@
 
 <!--Onetrust test-->
 	<script type="text/javascript">
-	    function inIframe () {
-	        try {
-	            return window.self !== window.top;
-	        } catch (e) {
-	            return true;
-	        }
-	    }
 	
-	    var insideIframe = inIframe();
-	    if(!inIframe()){
-	        alert("Loaded in iframe?: "+insideIframe);
-	    }
-	
-</script>
+		function inIframe () {
+		    try {
+		        return window.self !== window.top;
+		    } catch (e) {
+		        return true;
+		    }
+		}
+
+		if(!inIframe()) {
+			
+
+			$.ajax({
+				url: "https://cdn.cookielaw.org/consent/c6642991-810c-452a-93f6-a99668d6d7ee/OtAutoBlock.js",
+				dataType: "script",
+				success: function (data) {
+				
+					var script = document.createElement("script")
+					script.type = "text/javascript";
+					script.src = 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js';
+					script.setAttribute("data-document-language", "true");
+					script.setAttribute("data-domain-script", "c6642991-810c-452a-93f6-a99668d6d7ee");
+					document.getElementsByTagName("head")[0].appendChild(script);
+				}
+			});
+
+		}
+		
+		function OptanonWrapper() { 
+			var logoElement = document.getElementsByClassName("ot-pc-logo");
+			var logoImage="https://files.fundacionlacaixa.org/logos/logo_en.png";
+			if(document.documentElement.lang=="es-ES"){
+			logoImage="https://files.fundacionlacaixa.org/logos/logo_es.png";
+			}else if(document.documentElement.lang=="ca-ES"){
+			logoImage="https://files.fundacionlacaixa.org/logos/logo_cat.png";
+			}else if(document.documentElement.lang=="pt-PT"){
+			logoImage="https://files.fundacionlacaixa.org/logos/logo_pt.png";
+			}
+			logoElement[0].style.backgroundImage="url(" + logoImage+ ")";
+
+		
+		
+		}
+		
+	</script>
 
 <!-- Fonts and Material Icons -->
 	<link rel="stylesheet" as="font" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,600,700|Material+Icons"/>
